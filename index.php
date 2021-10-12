@@ -1,8 +1,5 @@
 <?php
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$dbname = "genericlaptop";
+require_once("PHP/DatabaseConfig.php");
 
 $con = mysqli_connect($hostname, $username, $password, $dbname)
 or die("Kan niet verbinden met de database!");
