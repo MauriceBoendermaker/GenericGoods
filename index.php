@@ -19,6 +19,10 @@ mysqli_set_charset($con, 'utf8');
 </head>
 <body class="w-90 px-5">
     <div class="w-50 mx-auto row">
+        <form class="justify-content-center">
+            <input class="col-md-8" type="text" name="search" value="<?php echo isset($_GET['search']) ? $_GET['search'] : '' ?>" placeholder="Zoek...">
+            <input class="col-md-auto btn btn-primary btn-lg" type="submit" value="Search">
+        </form>
     <?php
         $sql = "";
 
