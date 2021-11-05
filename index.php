@@ -1,5 +1,7 @@
 <?php require "config.php"; ?>
 <?php require "include/head.php"; ?>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <style>
     * {
         box-sizing: border-box;
@@ -62,95 +64,127 @@
 </style>
 <body>
 
-<h2>Laptop merk filter</h2>
+<nav class="navbar navbar-expand-md navbar-dark justify-content-between" style="background-color: rgb(205, 0, 0);">
+    <a class="navbar-brand" href="./">Generic Goods</a>
+    <div>
+        <form class="form-inline justify-content-center" style="text-align: center;">
+            <div class="input-group">
+                <input class="form-control" type="text" name="search" value="<?php echo isset($_GET['search']) ? $_GET['search'] : '' ?>" placeholder="Zoeken..." aria-label="Search">
+                <div class="input-group-append">
+                    <button class="input-group-text" type="submit"><img src="https://www.svgrepo.com/show/14071/search.svg" height="128" width="128" style="width: 20px; height: 20px;"></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav ml-auto ">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" style="margin-right: 5px;">Basket</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" style="margin-right: 5px;">User</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container" style="padding-top: 15px;">
 
-<form class="justify-content-center">
-    <input class="col-md-8" type="text" name="search" value="<?php echo isset($_GET['search']) ? $_GET['search'] : '' ?>" placeholder="Zoek...">
-    <input class="col-md-auto btn btn-primary btn-lg" type="submit" value="Search">
-</form>
 
-<div id="filtertnContainer">
-	<button class="btn active" onclick="filterSelection('all')"> Show all</button>
-	<button class="btn" onclick="filterSelection('Lenovo')"> Lenovo</button>
-	<button class="btn" onclick="filterSelection('Asus')"> Asus</button>
-	<button class="btn" onclick="filterSelection('Acer')"> Acer</button>
-	<button class="btn" onclick="filterSelection('HP')"> HP</button>
-	<button class="btn" onclick="filterSelection('Dell')"> Dell</button>
-	<button class="btn" onclick="filterSelection('Gigabyte')"> Gigabyte</button>
-</div>
+    <div class="jumbotron">
+        <h2>Laptop merk filter</h2>
+        <div id="filtertnContainer">
+            <button class="btn active" onclick="filterSelection('all')"> Show all</button>
+            <button class="btn" onclick="filterSelection('Lenovo')"> Lenovo</button>
+            <button class="btn" onclick="filterSelection('Asus')"> Asus</button>
+            <button class="btn" onclick="filterSelection('Acer')"> Acer</button>
+            <button class="btn" onclick="filterSelection('HP')"> HP</button>
+            <button class="btn" onclick="filterSelection('Dell')"> Dell</button>
+            <button class="btn" onclick="filterSelection('Gigabyte')"> Gigabyte</button>
+        </div>
+        <div class="row mx-auto">
+        <?php
+        $sql = "";
 
-<div class="row1" style="background-color: gray">
-	<?php
-    $sql = "";
+        $filterList = ["search", "price", "storagetype", "brand", "cpu", "gpu"];
+        $filters = array_keys_exists($filterList, $_GET);
 
-    $filterList = ["search", "price", "storagetype", "brand", "cpu", "gpu"];
-    $filters = array_keys_exists($filterList, $_GET);
-
-    if ($filters) {
-        $sql = "SELECT * FROM `laptop` WHERE ";
-        $queries = [];
-        foreach ($filters as $key => $value) {
-            $val = htmlspecialchars($value);
-            switch (htmlspecialchars($key)) {
-                case "search":
-                    array_push($queries, "( `name` LIKE '%{$val}%' OR `identifier` LIKE '%{$val}%')");
-                    break;
-                case "price":
-                    array_push($queries, "`price` <= {$val}");
-                    break;
-                case "storagetype":
-                    array_push($queries, "`storagetype` = '{$val}'");
-                    break;
-                case "brand":
-                    array_push($queries, "`brand` = {$val}");
-                    break;
-                case "cpu":
-                    array_push($queries, "`cpu` = {$val}");
-                    break;
-                case "gpu":
-                    array_push($queries, "`gpu` = {$val}");
-                    break;
+        if ($filters) {
+            $sql = "SELECT * FROM `laptop` WHERE ";
+            $queries = [];
+            foreach ($filters as $key => $value) {
+                $val = htmlspecialchars($value);
+                switch (htmlspecialchars($key)) {
+                    case "search":
+                        array_push($queries, "( `name` LIKE '%{$val}%' OR `identifier` LIKE '%{$val}%')");
+                        break;
+                    case "price":
+                        array_push($queries, "`price` <= {$val}");
+                        break;
+                    case "storagetype":
+                        array_push($queries, "`storagetype` = '{$val}'");
+                        break;
+                    case "brand":
+                        array_push($queries, "`brand` = {$val}");
+                        break;
+                    case "cpu":
+                        array_push($queries, "`cpu` = {$val}");
+                        break;
+                    case "gpu":
+                        array_push($queries, "`gpu` = {$val}");
+                        break;
+                }
             }
-        }
-        $sql .= implode(" AND ", $queries);
-    } else
-        $sql = "SELECT * FROM `laptop`";
+            $sql .= implode(" AND ", $queries);
+        } else
+            $sql = "SELECT * FROM `laptop`";
 
-	$result = $con->query($sql);
+        $result = $con->query($sql);
 
-	while($row = $result->fetch_assoc()) {
-		$sql2 = "SELECT * FROM `brand` WHERE `id` = " . $row["brand"];
-		$sql3 = "SELECT * FROM `gpu` WHERE `id` = " . $row["gpu"];
-		$sql4 = "SELECT * FROM `laptop` WHERE `id` = " . $row["brand"];
+        while($row = $result->fetch_assoc()) {
+            $sql2 = "SELECT * FROM `brand` WHERE `id` = " . $row["brand"];
+            $sql3 = "SELECT * FROM `gpu` WHERE `id` = " . $row["gpu"];
+            $sql4 = "SELECT * FROM `laptop` WHERE `id` = " . $row["brand"];
 
-		$brand = $con->query($sql2);
-		$gpu = $con->query($sql3);
-		$identifier = $con->query($sql4);
+            $brand = $con->query($sql2);
+            $gpu = $con->query($sql3);
+            $identifier = $con->query($sql4);
 
-		$brandName = $brand->fetch_assoc();
-		$gpuName = $gpu->fetch_assoc();
-		$identifierName = $identifier->fetch_assoc();
+            $brandName = $brand->fetch_assoc();
+            $gpuName = $gpu->fetch_assoc();
+            $identifierName = $identifier->fetch_assoc();
 
-		echo "<div style=\" background-color: lightgray; width: 250px;\" class=\" column1\"><div class='filterDiv ".$brandName["name"]."'>";
-		echo "<div class='col-md-12 '><img class='mx-auto' style='width: 100%' src=\"./images/".$row["thumbnail"]."\" /></div>";
-		echo "<div class='col-md-12 brandName'>
+
+            echo "<div style=\" background-color: lightgray; width: 250px;\" class=\"m-1 column1 filterDiv ".$brandName["name"]."\"><div class='row'>";
+            echo "<div class='justify-content-md-center col-md-12'><img class='mx-auto' style='width: 100%' src=\"./images/".$row["thumbnail"]."\" /></div>";
+            echo "<div class='col-md-12 brandName text-center'>
 				<a href='template.php?id=".$row["identifier"]."'>".$brandName["name"]." ".$row["name"]."</a>
 			</div>";
-		echo "<div class='col-md-12 '><p>".$gpuName["name"]."</p></div>";
-		echo "<div class='col-md-6 '><p>".$row["storagesize"]."</p></div>";
-		echo "<div class='col-md-6 '><p>".$row["storagetype"]."</p></div>";
-		echo "</div></div>";
-	}
-    if ($result->num_rows == 0) {
-        /* TODO: add a formatted message */
-        echo "No search results";
-    }
+            echo "<div class='col-md-12 text-center text-secondary'><p>".$gpuName["name"]."</p></div>";
+            echo "<div class='col-md-12 text-center text-muted'><p>".$row["storagesize"]. " ". $row["storagetype"]."</p></div>";
+            echo "</div></div>";
+        }
+        if ($result->num_rows == 0) {
+            /* TODO: add a formatted message */
+            echo "No search results";
+        }
 
-    function array_keys_exists(array $keys, array $arr) {
-        return array_intersect_key($arr, array_flip($keys));
-    }
-	?>
-</div>
+        function array_keys_exists(array $keys, array $arr) {
+            return array_intersect_key($arr, array_flip($keys));
+        }
+        ?>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© GenericGoods 2021</p>
+    </footer>
+
+</div> <!-- /container -->
 
 <script>
     filterSelection("all")
@@ -159,8 +193,10 @@
         x = document.getElementsByClassName("filterDiv");
         if (c == "all") c = "";
         for (i = 0; i < x.length; i++) {
-            w3RemoveClass(x[i], "show");
-            if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+            x[i].style.display = "none";
+            if (x[i].className.indexOf(c) > -1) x[i].style.display = "inline";
+            //w3RemoveClass(x[i], "show");
+            //if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
         }
     }
 
