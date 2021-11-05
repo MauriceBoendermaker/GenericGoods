@@ -93,20 +93,90 @@
     </div>
 </nav>
 <div class="container" style="padding-top: 15px;">
-
-
-    <div class="jumbotron">
-        <h2>Laptop merk filter</h2>
-        <div id="filtertnContainer">
-            <button class="btn active" onclick="filterSelection('all')"> Show all</button>
-            <button class="btn" onclick="filterSelection('Lenovo')"> Lenovo</button>
-            <button class="btn" onclick="filterSelection('Asus')"> Asus</button>
-            <button class="btn" onclick="filterSelection('Acer')"> Acer</button>
-            <button class="btn" onclick="filterSelection('HP')"> HP</button>
-            <button class="btn" onclick="filterSelection('Dell')"> Dell</button>
-            <button class="btn" onclick="filterSelection('Gigabyte')"> Gigabyte</button>
+    <div class="jumbotron row">
+        <div class="col-lg-3 pt-3" style="background-color: #f6f6f6; border-radius: 5px">
+            <h4>Quick Filters</h4>
+            <hr>
+            <h6>Laptop merk filter</h6>
+            <div id="filtertnContainer" class="mb-5">
+                <button class="btn active" onclick="filterSelection('all')"> Show all</button>
+                <button class="btn" onclick="filterSelection('Lenovo')"> Lenovo</button>
+                <button class="btn" onclick="filterSelection('Asus')"> Asus</button>
+                <button class="btn" onclick="filterSelection('Acer')"> Acer</button>
+                <button class="btn" onclick="filterSelection('HP')"> HP</button>
+                <button class="btn" onclick="filterSelection('Dell')"> Dell</button>
+                <button class="btn" onclick="filterSelection('Gigabyte')"> Gigabyte</button>
+            </div>
+            <h4>Filters</h4>
+            <form>
+                <hr>
+                <fieldset>
+                    <h6>CPU</h6>
+                    <label class="btn">
+                        <input type="radio" name="cpu" value=""> None
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="cpu" value="1"> Intel Core i3
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="cpu" value="2"> Intel Core i5
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="cpu" value="3"> Intel Core i7
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="cpu" value="4"> Intel Core i9
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="cpu" value="5"> AMZ Ryzen 5
+                    </label>
+                </fieldset>
+                <hr>
+                <fieldset>
+                    <h6>GPU</h6>
+                    <label class="btn">
+                        <input type="radio" name="gpu" value=""> None
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="gpu" value="1"> NVIDIA GeForce GTX 1650
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="gpu" value="2"> NVIDIA GeForce GTX 1660 ti
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="gpu" value="3"> NVIDIA GeForce RTX 2060
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="gpu" value="4"> NVIDIA GeForce RTX 2080 Super
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="gpu" value="5"> NVIDIA GeForce RTX 3070
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="gpu" value="6"> NVIDIA GeForce RTX 3080
+                    </label>
+                </fieldset>
+                <hr>
+                <fieldset>
+                    <h6>Storage</h6>
+                    <label class="btn">
+                        <input type="radio" name="storagetype" value=""> None
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="storagetype" value="HDD"> HDD
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="storagetype" value="SSD"> SSD
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="storagetype" value="SHD"> SHD
+                    </label>
+                </fieldset>
+                <hr>
+                <button class="btn" type="submit">Apply</button>
+            </form>
         </div>
-        <div class="row mx-auto">
+        <div class="col-lg-9 row mx-auto">
         <?php
         $sql = "";
 
@@ -118,6 +188,9 @@
             $queries = [];
             foreach ($filters as $key => $value) {
                 $val = htmlspecialchars($value);
+
+                if (empty($val)) continue;
+
                 switch (htmlspecialchars($key)) {
                     case "search":
                         array_push($queries, "( `name` LIKE '%{$val}%' OR `identifier` LIKE '%{$val}%')");
@@ -139,7 +212,10 @@
                         break;
                 }
             }
-            $sql .= implode(" AND ", $queries);
+            if (count($queries) > 0)
+                $sql .= implode(" AND ", $queries);
+            else
+                $sql = "SELECT * FROM `laptop`";
         } else
             $sql = "SELECT * FROM `laptop`";
 
