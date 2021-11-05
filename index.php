@@ -44,7 +44,6 @@
         color: white;
     }
 
-
     .column1 {
         float: left;
         /*width: 33.33%;*/
@@ -65,6 +64,11 @@
 
 <h2>Laptop merk filter</h2>
 
+<form class="justify-content-center">
+    <input class="col-md-8" type="text" name="search" value="<?php echo isset($_GET['search']) ? $_GET['search'] : '' ?>" placeholder="Zoek...">
+    <input class="col-md-auto btn btn-primary btn-lg" type="submit" value="Search">
+</form>
+
 <div id="filtertnContainer">
 	<button class="btn active" onclick="filterSelection('all')"> Show all</button>
 	<button class="btn" onclick="filterSelection('Lenovo')"> Lenovo</button>
@@ -77,7 +81,41 @@
 
 <div class="row1" style="background-color: gray">
 	<?php
-	$sql = "SELECT * FROM `laptop`";
+    $sql = "";
+
+    $filterList = ["search", "price", "storagetype", "brand", "cpu", "gpu"];
+    $filters = array_keys_exists($filterList, $_GET);
+
+    if ($filters) {
+        $sql = "SELECT * FROM `laptop` WHERE ";
+        $queries = [];
+        foreach ($filters as $key => $value) {
+            $val = htmlspecialchars($value);
+            switch (htmlspecialchars($key)) {
+                case "search":
+                    array_push($queries, "( `name` LIKE '%{$val}%' OR `identifier` LIKE '%{$val}%')");
+                    break;
+                case "price":
+                    array_push($queries, "`price` <= {$val}");
+                    break;
+                case "storagetype":
+                    array_push($queries, "`storagetype` = '{$val}'");
+                    break;
+                case "brand":
+                    array_push($queries, "`brand` = {$val}");
+                    break;
+                case "cpu":
+                    array_push($queries, "`cpu` = {$val}");
+                    break;
+                case "gpu":
+                    array_push($queries, "`gpu` = {$val}");
+                    break;
+            }
+        }
+        $sql .= implode(" AND ", $queries);
+    } else
+        $sql = "SELECT * FROM `laptop`";
+
 	$result = $con->query($sql);
 
 	while($row = $result->fetch_assoc()) {
@@ -102,9 +140,15 @@
 		echo "<div class='col-md-6 '><p>".$row["storagesize"]."</p></div>";
 		echo "<div class='col-md-6 '><p>".$row["storagetype"]."</p></div>";
 		echo "</div></div>";
-
-
 	}
+    if ($result->num_rows == 0) {
+        /* TODO: add a formatted message */
+        echo "No search results";
+    }
+
+    function array_keys_exists(array $keys, array $arr) {
+        return array_intersect_key($arr, array_flip($keys));
+    }
 	?>
 </div>
 
