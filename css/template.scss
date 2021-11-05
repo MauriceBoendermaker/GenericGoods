@@ -1,0 +1,40 @@
+* {
+  //font-family: Montserrat;
+}
+
+body {
+  background-color: white;
+  margin: 0px;
+}
+
+.wrapper {
+  display: flex;
+}
+
+.productImage img {
+
+}
+
+.side-space {
+  flex-grow: 1;
+  background-color: pink;
+}
+
+.main-container {
+  text-align: center;
+  font-size: 20px;
+}
+
+.spec-container table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.spec-container th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+.spec-container tr:nth-child(even) {
+  background-color: #D6EEEE;
+}
