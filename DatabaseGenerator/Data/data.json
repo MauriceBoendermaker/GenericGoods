@@ -1,0 +1,253 @@
+{
+	"screensPath": "./images/screens",
+	"framesPath": "./images/frames",
+	"keyboardsPath": "./images/keyboards",
+	
+	"descriptions" : [
+		"Bewerk bedrijfsvideo's of filmprojecten en schrijf tegelijkertijd het script uit met de {brand} {name} {inch} inch laptop. De laptop is uitgerust met een {cpu} processor en {ram} aan werkgeheugen, waardoor je vloeiend met zware bestanden aan het werk gaat. Het {inch} inch beeldscherm komt met een haarscherpe {resolution} resolutie. Inloggen gaat veilig en snel via de infrarood camera met gezichtsherkenning. Zo weet je zeker dat er geen ongewenste bezoekers gebruik maken van je laptop. Een muziekje luisteren tijdens werk of geluidsbestanden bewerken in je video? Door de Dolby Atmos speakers klinkt je geluid scherper dan bij standaard luidsprekers.",
+		"Bewerk video's en multitask overzichtelijk op het {inch} inch beeldscherm van de {brand} {name}. Daar is deze {brand} met {cpu} processor en {ram} werkgeheugen. Werk op een zonnige dag in jouw achtertuin verder. Het ontspiegelde beeldscherm zorgt ervoor dat je geen last hebt van vervelende lichtreflecties.",
+		"Bewerk video's en multitask overzichtelijk op het {inch} inch beeldscherm van de {brand} {name}. Daar is deze {brand} met {cpu} processor en {ram} werkgeheugen. Door de {gpu} videokaart renderen videoprojecten sneller en speel je simpele games als Minecraft en The Sims op deze laptop.",
+		"Schrijf een Word verslag of videochat met vrienden en familie op de {brand} {name}. Open een paar internet tabbladen tegelijkertijd dankzij {ram} werkgeheugen. Op een warme dag neem je de Lenovo mee naar de tuin. Je hebt geen last van zonlicht reflecties op het ontspiegelde beeldscherm. Via de Dolby Audio luidsprekers versta je iedereen duidelijk tijdens het Skypen of Zoomen. Even niet aan het videochatten? Schuif het klepje voor de webcam en werp een fysieke blokkade op voor potentiële meekijkers.",
+		"Speel games als Cyberpunk 2077 op bepaalde instellingen met hoge framerates op de {brand} {name}. Daar is de {gpu} videokaart krachtig genoeg voor. In competitieve shooters ben je jouw tegenstanders altijd een stapje voor dankzij het {refresh} hertz beeldscherm. Je ziet op dit scherm tot wel {refresh} beelden per seconden, waardoor snelle gameplay soepel weergegeven wordt. Met een {cpu} processor en {ram} werkgeheugen blijft het niet bij gamen alleen. Bewerk video's, stream gameplay naar Twitch of werk in meerdere programma's tegelijkertijd."
+	],
+	"brands":[
+		{
+			"name":"Lenovo",
+			"naming":"****",
+			"frames":[
+				"plain2.png",
+				"gamer.png",
+				"frame.png"
+			],
+			"screens":[
+				"off.png",
+				"bliss.png",
+				"wallpaper.png",
+				"doomvignette.png",
+				"doom.png",
+				"doomvignette.png",
+				"neon.png"
+			]
+		},
+		{
+			"name":"Asus",
+			"naming":"??-***",
+			"frames":[
+				"plain.png",
+				"plain2.png",
+				"frame.png"
+			],
+			"screens":[
+				"off.png",
+				"off2.png",
+				"off3.png",
+				"wrickcorp.png",
+				"wallpaper.png",
+				"someos.png"
+			]
+		},
+		{
+			"name":"Acer",
+			"naming":"??**??",
+			"frames":[
+				"plain.png",
+				"plain2.png",
+				"cheapstudent.png",
+				"gamer.png"
+			],
+			"screens":[
+				"off.png",
+				"off2.png",
+				"bliss.png",
+				"doom.png",
+				"someos.png",
+				"neon.png"
+			]
+		},
+		{
+			"name":"HP",
+			"naming":"****",
+			"frames":[
+				"plain.png",
+				"plain2.png",
+				"gamer.png"
+			],
+			"screens":[
+				"off.png",
+				"off2.png",
+				"off3.png",
+			]
+		},
+		{
+			"name":"Dell",
+			"naming":"**00*",
+			"frames":[
+				"plain.png",
+				"plain2.png"
+			],
+			"screens":[
+				"spider.png",
+				"spider.png",
+				"spider.png",
+				"bliss.png",
+				"wallpaper.png",
+				"someos.png",
+				"neon.png"
+			]
+		},
+		{
+			"name":"Gigabyte",
+			"naming":"**00*",
+			"frames":[
+				"plain.png",
+				"plain2.png",
+				"gamer.png",
+				"frame.png"
+			],
+			"screens":[
+				"spider.png",
+				"bliss.png",
+				"wallpaper.png",
+				"someos.png",
+				"neon.png",
+				"doomvignette.png"
+			]
+		}
+	],
+	"frames": [
+		{
+			// Colorless Laptops
+			"colors": [""], //no color
+			"images": [
+				"plain.png",
+				"plain2.png",
+				"frame.png"
+			]
+		},
+		{
+			//"Hacker man" colored laptops
+			"colors": [
+				"#12c918", // lime
+				"#fa0707", // red
+				"#073cfa", // blue
+				"#171717"  // black
+			],
+			"images": [
+				"gamer.png"
+			]
+		},
+		{
+			// Typical student laptop frames
+			"colors": [
+				"#12c918", // lime
+				"#eb4034", // red
+				"#4287f5", // blue
+				"#edeff2", // white
+				"#ff85f3"  // pink
+			],
+			"images": [
+				"cheapstudent.png"
+			]
+		}
+	],
+	"keyboards": [
+		"key1.png",
+		"key1.png",
+		"key1.png",
+		"key1glow.png",
+		"key1glowgreen.png",
+		"key1glowblue.png"
+	],
+	"specs": {
+		"CPU": [
+			{
+				"name": "Intel Core i3",
+				"cores": 4
+			},
+			{
+				"name": "Intel Core i5",
+				"cores": 6
+			},
+			{
+				"name": "Intel Core i7",
+				"cores": 6
+			},
+			{
+				"name": "Intel Core i9",
+				"cores": 8
+			},
+			{
+				"name": "AMD Ryzen 5",
+				"cores": 6
+			}
+		],
+		"GPU": [
+			{
+				"name": "NVIDIA GeForce GTX 1650",
+				"vram": 4
+			},
+			{
+				"name": "NVIDIA GeForce GTX 1660 ti",
+				"vram": 6
+			},
+			{
+				"name": "NVIDIA GeForce RTX 2060",
+				"vram": 6
+			},
+			{
+				"name": "NVIDIA GeForce RTX 2080 Super",
+				"vram": 8
+			},
+			{
+				"name": "NVIDIA GeForce RTX 3070",
+				"vram": 8
+			},
+			{
+				"name": "NVIDIA GeForce RTX 3080",
+				"vram": 10
+			}
+		],
+		"RAM": [
+			4096,
+			8192,
+			16384,
+			32768
+		],
+		"Drive": {
+			"types": [
+				"HDD",
+				"SSD",
+				"SHDD"
+			],
+			"sizes": [
+				500,
+				1000,
+				1000,
+				1000,
+				2000,
+				2000,
+				4000
+			]
+		},
+		"Screen": {
+			"hz": [
+				60,
+				120,
+				144
+			],
+			"diagonal": [
+				11.6,
+				12.5,
+				13.3,
+				14,
+				15.6,
+				17.3
+			],
+			"resolutions": [
+				"Full HD (1080p)",
+				"Quad HD (1440p)",
+				"4K (UHD)"
+			]
+		}
+	}
+}
