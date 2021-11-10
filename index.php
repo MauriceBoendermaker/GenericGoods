@@ -169,7 +169,7 @@
                         <input type="radio" name="storagetype" value="SSD"> SSD
                     </label>
                     <label class="btn">
-                        <input type="radio" name="storagetype" value="SHD"> SHD
+                        <input type="radio" name="storagetype" value="SHDD"> SHDD
                     </label>
                 </fieldset>
                 <hr>
