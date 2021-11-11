@@ -1,6 +1,19 @@
 <?php
-// Database login
-require "config.php";
+
+// template.php
+// Maurice Boendermaker
+// 11/11/2021
+
+// OOP
+declare(strict_types=1);
+namespace GenericGoods;
+
+// Import Classes - OOP
+require "include/Identifier.php";
+require "include/MySQL.php";
+
+// Database login - Procedural
+//require "config.php";
 
 // <head/> elements, for stylesheets, scripts and meta tags
 require "include/head.php";
@@ -8,27 +21,33 @@ require "include/head.php";
 // Navigation bar
 //require "include/nav.php";
 
-// Get identifier id from URL
-$id = $_GET['id'];
+// Get identifier id from URL - OOP
+$Identifier = new Identifier($_GET['id']);
 
-$sql = "SELECT * FROM `laptop` WHERE `identifier` = " . $id;
-$result = $con->query($sql);
+// Get identifier id from URL - Procedural
+// $id = $_GET['id'];
 
-while($row = $result->fetch_assoc()) {
+$result = new MySQL();
+$con = $result->connect("localhost" , "root" , "" , "genericlaptop");
+
+$rs = $result->query("SELECT * FROM `laptop` WHERE `identifier` = " . $Identifier->getId());
+
+while ($row = $result->fetch($rs)) {
 	$sql2 = "SELECT * FROM `brand` WHERE `id` = " . $row["brand"];
 	$sql3 = "SELECT * FROM `gpu` WHERE `id` = " . $row["gpu"];
 	$sql4 = "SELECT * FROM `cpu` WHERE `id` = " . $row["cpu"];
 	$sql5 = "SELECT * FROM `resolution` WHERE `id` = " . $row["resolution"];
 
-	$brand = $con->query($sql2);
-	$gpu = $con->query($sql3);
-	$cpu = $con->query($sql4);
-	$resolution = $con->query($sql5);
+	$brand = $result->query($sql2);
+	$gpu = $result->query($sql3);
+	$cpu = $result->query($sql4);
+	$resolution = $result->query($sql5);
 
 	$brandName = $brand->fetch_assoc();
 	$gpuName = $gpu->fetch_assoc();
 	$cpuName = $cpu->fetch_assoc();
 	$resolutionAmount = $resolution->fetch_assoc();
+
 ?>
 
 
